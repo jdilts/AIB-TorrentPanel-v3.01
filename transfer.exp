@@ -1,0 +1,29 @@
+#!/usr/bin/expect -f
+
+set run [lindex $argv 0];
+set path [lindex $argv 1];
+
+## transfer nucleotide frequency files
+spawn scp $path/AIB_RESULTS/nt_freq.xls informatics@aib-bitest.aibiotech.com:/dilts/5_DATA_COLLECTION/Ion_Torrent_ntfreqs/$run
+expect -exact "The authenticity of host"   {send "yes\r"}
+expect -exact "Password:"
+send "g1mm#data
+"
+
+## transfer genotype files
+spawn scp $path/AIB_RESULTS/genotype.txt informatics@aib-bitest.aibiotech.com:/dilts/5_DATA_COLLECTION/Ion_Torrent_genotypes/$run
+expect -exact "The authenticity of host"   {send "yes\r"}
+expect -exact "Password:"
+send "g1mm#data
+"
+
+## transfer sampleID files
+spawn scp $path/AIB_RESULTS/sampleID.txt informatics@aib-bitest.aibiotech.com:/dilts/sampleIDs/stage/$run
+expect -exact "The authenticity of host"   {send "yes\r"}
+expect -exact "Password:"
+send "g1mm#data
+"
+
+
+
+expect eof
